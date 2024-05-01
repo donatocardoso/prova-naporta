@@ -9,13 +9,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/app/jwt-auth.guard';
 import { AtualizarUsuarioDto } from 'src/dtos/usuario/atualizarUsuario.dto';
 import { CriarUsuarioDto } from 'src/dtos/usuario/criarUsuario.dto';
 import { FiltrarUsuarioDto } from 'src/dtos/usuario/filtrarUsuario.dto';
 import { UsuarioService } from './usuario.service';
 
+@ApiBearerAuth()
 @ApiTags('usuario')
 @Controller('usuario')
 export class UsuarioController {

@@ -6,6 +6,8 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
+import { ApiBody } from '@nestjs/swagger';
+import { AuthDto } from 'src/dtos/app/auth.dto';
 import { AppService } from './app.service';
 
 @Controller()
@@ -20,7 +22,8 @@ export class AppController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async signIn(@Body() signInDto: Record<string, any>) {
-    return this.appService.signIn(signInDto.username, signInDto.password);
+  @ApiBody({ type: AuthDto })
+  async signIn(@Body() authDto: AuthDto) {
+    return this.appService.signIn(authDto);
   }
 }

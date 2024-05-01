@@ -62,6 +62,7 @@ $ yarn run test:cov
 
 feature-001: add swagger
 feature-002: add database
+feature-003: add jwt
 
 ## License
 

@@ -9,11 +9,23 @@ async function bootstrap() {
     .setTitle('api-naporta')
     .setDescription('')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api-naporta', app, document, {
+    swaggerOptions: {
+      securityDefinitions: {
+        Bearer: {
+          type: 'apiKey',
+          name: 'Authorization',
+          scheme: 'bearer',
+          in: 'header',
+        },
+      },
+    },
+  });
 
   await app.listen(3000);
 }

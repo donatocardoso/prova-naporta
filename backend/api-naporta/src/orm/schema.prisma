@@ -34,7 +34,7 @@ model Usuario {
   senha                 String
   ativo                 Boolean @default(true)
   dataCriacao           DateTime @default(now())
-  dataAlteracao         DateTime @updatedAt
+  dataAlteracao         DateTime? @updatedAt
   dataInativacao        DateTime?
 }
 

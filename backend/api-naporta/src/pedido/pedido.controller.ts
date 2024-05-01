@@ -9,13 +9,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/app/jwt-auth.guard';
 import { AtualizarPedidoDto } from 'src/dtos/pedido/atualizarPedido.dto';
 import { CriarPedidoDto } from 'src/dtos/pedido/criarPedido.dto';
 import { FiltrarPedidoDto } from 'src/dtos/pedido/filtrarPedido.dto';
 import { PedidoService } from './pedido.service';
 
+@ApiBearerAuth()
 @ApiTags('pedido')
 @Controller('pedido')
 export class PedidoController {
