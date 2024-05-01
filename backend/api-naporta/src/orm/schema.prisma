@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type Cliente {
+  nome                  String
+  documento             String
+}
+
+type Endereco {
+  cep                   Int
+  logradouro            String
+  numero                String
+  complemento           String
+  bairro                String
+  cidade                String
+}
+
+type Item {
+  descricao             String
+  preco                 Float
+}
+
+model Pedido {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  numeroPedido          Int @unique @default(autoincrement())
+  dataPrevisaoEntrega   DateTime
+  cliente               Cliente
+  enderecoEntrega       Endereco
+  items                 Item[]
+  dataCriacao           DateTime @default(now())
+}
