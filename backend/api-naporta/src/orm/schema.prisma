@@ -26,9 +26,21 @@ type Item {
   preco                 Float
 }
 
+model Usuario {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  nome                  String
+  descricao             String
+  login                 String
+  senha                 String
+  ativo                 Boolean @default(true)
+  dataCriacao           DateTime @default(now())
+  dataAlteracao         DateTime @updatedAt
+  dataInativacao        DateTime?
+}
+
 model Pedido {
   id                    String @id @default(auto()) @map("_id") @db.ObjectId
-  numeroPedido          Int @unique @default(autoincrement())
+  numeroPedido          Int @unique
   dataPrevisaoEntrega   DateTime
   cliente               Cliente
   enderecoEntrega       Endereco

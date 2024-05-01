@@ -5,6 +5,6 @@ import { PedidoService } from './pedido.service';
 
 @Module({
   controllers: [PedidoController],
-  providers: [PedidoService, PrismaService],
+  providers: [PrismaService, PedidoService],
 })
 export class PedidoModule {}
