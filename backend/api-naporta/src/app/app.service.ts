@@ -22,7 +22,7 @@ export class AppService {
     return mensagem.join('\r\n\r\n');
   }
 
-  async signIn(authDto: AuthDto): Promise<{ access_token: string }> {
+  async signIn(authDto: AuthDto): Promise<string> {
     const usuario = await this.usuarioService.buscarUsuarioPorLogin(
       authDto.login,
     );
@@ -32,6 +32,7 @@ export class AppService {
     }
 
     const cryptr = new Cryptr(process.env.BUTTERCUP_SECRET);
+
     const senha = cryptr.decrypt(authDto.senha);
 
     if (senha !== usuario.conteudo.senha) {
@@ -40,10 +41,8 @@ export class AppService {
 
     const payload = { sub: usuario.conteudo.id, login: authDto.login };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload, {
-        secret: process.env.JWT_SECRET,
-      }),
-    };
+    return await this.jwtService.signAsync(payload, {
+      secret: process.env.JWT_SECRET,
+    });
   }
 }

@@ -45,5 +45,8 @@ model Pedido {
   cliente               Cliente
   enderecoEntrega       Endereco
   items                 Item[]
+  ativo                 Boolean @default(true)
   dataCriacao           DateTime @default(now())
+  dataAlteracao         DateTime? @updatedAt
+  dataInativacao        DateTime?
 }

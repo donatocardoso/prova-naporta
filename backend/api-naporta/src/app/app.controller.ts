@@ -9,6 +9,7 @@ import {
 import { ApiBody } from '@nestjs/swagger';
 import { AuthDto } from 'src/dtos/app/auth.dto';
 import { AppService } from './app.service';
+import { Public } from './jwt-auth.guard';
 
 @Controller()
 export class AppController {
@@ -16,6 +17,7 @@ export class AppController {
 
   @Get('ping')
   @HttpCode(HttpStatus.OK)
+  @Public()
   async ping(): Promise<string> {
     return await this.appService.ping();
   }
@@ -23,6 +25,7 @@ export class AppController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: AuthDto })
+  @Public()
   async signIn(@Body() authDto: AuthDto) {
     return this.appService.signIn(authDto);
   }

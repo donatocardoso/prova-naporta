@@ -36,6 +36,7 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
+    "@killovsky/4devs": "^1.0.1",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
