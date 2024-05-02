@@ -1,45 +1,55 @@
 import _4devs from '@killovsky/4devs';
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/orm/prisma.service';
+import { PrismaClient } from '@prisma/client';
+import moment from 'moment';
 
-@Injectable()
-export class PedidoSeed {
-  constructor(private prisma: PrismaService) {}
+const prisma = new PrismaClient();
 
-  async PedidoSeeds() {
-    const pessoas = await _4devs.gerar(50, false, 'pessoa');
+async function main() {
+  const { code, error, dados } = await _4devs.gerar(95, false, 'pessoa');
 
-    console.log(pessoas);
+  if (code !== 200 || error) return;
 
-    return;
-
-    await this.prisma.pedido.create({
-      data: {
+  const transaction = prisma.$transaction([
+    prisma.pedido.createMany({
+      data: dados.map((pessoa) => ({
         numeroPedido: 1,
         dataPrevisaoEntrega: new Date(),
         cliente: {
-          nome: '',
-          documento: '',
+          nome: pessoa.nome,
+          cpf: pessoa.cpf,
+          rg: pessoa.rg,
+          dataNasc: moment(pessoa.data_nasc, 'DD/MM/YYYY').toDate(),
+          celular: pessoa.celular,
+          email: pessoa.email,
         },
         enderecoEntrega: {
-          cep: 0,
-          logradouro: '',
-          numero: '',
-          complemento: '',
-          bairro: '',
-          cidade: '',
+          cep: pessoa.cep,
+          logradouro: pessoa.endereco,
+          numero: `${pessoa.numero}`,
+          complemento: 'Tel Fixo: ' + pessoa.telefone_fixo,
+          bairro: pessoa.bairro,
+          cidade: pessoa.cidade,
+          estado: pessoa.estado,
         },
         items: [
-          {
-            descricao: '',
-            preco: 0.0,
-          },
-          {
-            descricao: '',
-            preco: 0.0,
-          },
+          { descricao: 'Bolacha Bauducco Morango', preco: 1.99 },
+          { descricao: 'Bolacha Bauducco Baunilha', preco: 1.99 },
+          { descricao: 'Leite UHT Integral Jussara', preco: 4.49 },
+          { descricao: 'Água Mineral Lindoya', preco: 2.5 },
         ],
-      },
-    });
-  }
+      })),
+    }),
+  ]);
+
+  await Promise.all([transaction]);
 }
+
+main()
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

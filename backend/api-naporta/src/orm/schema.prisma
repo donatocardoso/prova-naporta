@@ -1,24 +1,29 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider      = "mongodb"
+  url           = env("DATABASE_URL")
 }
 
 type Cliente {
   nome                  String
-  documento             String
+  cpf                   String
+  rg                    String
+  dataNasc              DateTime
+  celular               String
+  email                 String
 }
 
 type Endereco {
-  cep                   Int
+  cep                   String
   logradouro            String
   numero                String
   complemento           String
   bairro                String
   cidade                String
+  estado                String
 }
 
 type Item {

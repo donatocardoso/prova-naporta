@@ -5,8 +5,10 @@ import { AppModule } from './app/app.module';
 import { JwtAuthGuard } from './app/jwt-auth.guard';
 
 async function bootstrap() {
+  // cria instancia do servidor
   const app = await NestFactory.create(AppModule);
 
+  // adiciona o swagger para visualizacao de rotas
   const config = new DocumentBuilder()
     .setTitle('api-naporta')
     .setDescription('')
@@ -29,11 +31,13 @@ async function bootstrap() {
     },
   });
 
+  // adiciona segurança a api
   const reflector = app.get(Reflector);
   const jwtService = app.get(JwtService);
 
   app.useGlobalGuards(new JwtAuthGuard(reflector, jwtService));
 
+  // inicia o servidor
   await app.listen(3000);
 }
 
