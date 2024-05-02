@@ -1,8 +1,8 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app/app.module';
-import { JwtAuthGuard } from './app/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/configs/jwt-auth.guard';
+import { AppModule } from 'src/modules/app.module';
 
 async function bootstrap() {
   // cria instancia do servidor
