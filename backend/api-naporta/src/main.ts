@@ -9,12 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // adiciona o swagger para visualizacao de rotas
-  const config = new DocumentBuilder()
-    .setTitle('api-naporta')
-    .setDescription('')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+  const config = new DocumentBuilder().setTitle('api-naporta').setDescription('').setVersion('1.0').addBearerAuth().build();
 
   const document = SwaggerModule.createDocument(app, config);
 

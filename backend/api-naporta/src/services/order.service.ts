@@ -16,9 +16,7 @@ export class OrderService {
     return Responser.Success<Order[]>('Ok', orders);
   }
 
-  async getOrdersByFilter(
-    filterDto: OrderFilterDto,
-  ): Promise<Response<Order[]>> {
+  async getOrdersByFilter(filterDto: OrderFilterDto): Promise<Response<Order[]>> {
     const orders = await this.prismaService.order.findMany({
       where: { ...filterDto },
     });
@@ -70,10 +68,7 @@ export class OrderService {
     return Responser.Success<Order>('Ok', order);
   }
 
-  async updateOrder(
-    id: string,
-    updateDto: OrderUpdateDto,
-  ): Promise<Response<Order>> {
+  async updateOrder(id: string, updateDto: OrderUpdateDto): Promise<Response<Order>> {
     const order = await this.prismaService.order.update({
       where: { id },
       data: updateDto,

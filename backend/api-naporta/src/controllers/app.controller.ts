@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiBody } from '@nestjs/swagger';
 import { Public } from 'src/configs/jwt-auth.guard';
 import { AuthDto } from 'src/dtos/app/auth.dto';

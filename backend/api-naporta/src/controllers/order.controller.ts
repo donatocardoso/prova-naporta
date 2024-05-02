@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { OrderCreateDto } from 'src/dtos/order/order.create.dto';
 import { OrderFilterDto } from 'src/dtos/order/order.filter.dto';
@@ -51,10 +40,7 @@ export class OrderController {
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: OrderUpdateDto })
-  async updateOrder(
-    @Param('id') id: string,
-    @Body() updateDto: OrderUpdateDto,
-  ) {
+  async updateOrder(@Param('id') id: string, @Body() updateDto: OrderUpdateDto) {
     return await this.orderService.updateOrder(id, updateDto);
   }
 
