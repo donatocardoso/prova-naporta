@@ -1,24 +1,24 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import moment from 'moment';
-import { AuthDto } from 'src/dtos/app/auth.dto';
+import { AuthDto } from 'src/dtos/home/auth.dto';
 import { UserService } from 'src/services/user.service';
 
 @Injectable()
-export class AppService {
+export class HomeService {
   constructor(
     private jwtService: JwtService,
     private userService: UserService,
   ) {}
 
   async ping(): Promise<string> {
-    const mensagem = [];
+    const message = [];
 
-    mensagem.push('Hello World!');
-    mensagem.push('Aqui é a "api-naporta"');
-    mensagem.push('Hoje é: ' + moment().format());
+    message.push('Hello World!');
+    message.push('Aqui é a "api-naporta"');
+    message.push('Hoje é: ' + moment().format());
 
-    return mensagem.join('\r\n\r\n');
+    return message.join('\r\n\r\n');
   }
 
   async signIn(authDto: AuthDto): Promise<string> {

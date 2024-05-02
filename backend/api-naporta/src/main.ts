@@ -2,11 +2,11 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/configs/jwt-auth.guard';
-import { AppModule } from 'src/modules/app.module';
+import { HomeModule } from 'src/modules/home.module';
 
 async function bootstrap() {
   // cria instancia do servidor
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(HomeModule);
 
   // adiciona o swagger para visualizacao de rotas
   const config = new DocumentBuilder().setTitle('api-naporta').setDescription('').setVersion('1.0').addBearerAuth().build();

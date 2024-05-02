@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { AppController } from 'src/controllers/app.controller';
+import { HomeController } from 'src/controllers/home.controller';
 import { OrderModule } from 'src/modules/order.module';
 import { PrismaModule } from 'src/modules/prisma.module';
 import { UserModule } from 'src/modules/user.module';
-import { AppService } from 'src/services/app.service';
+import { HomeService } from 'src/services/home.service';
 import { UserService } from 'src/services/user.service';
 
 @Module({
@@ -18,7 +18,7 @@ import { UserService } from 'src/services/user.service';
     UserModule,
     PrismaModule,
   ],
-  controllers: [AppController],
-  providers: [JwtService, AppService, UserService],
+  controllers: [HomeController],
+  providers: [JwtService, HomeService, UserService],
 })
-export class AppModule {}
+export class HomeModule {}

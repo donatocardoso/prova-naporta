@@ -65,6 +65,7 @@ feature-002: add database
 feature-003: add jwt
 feature-004: add seeds
 feature-005: implement clean code
+feature-006: implement test covarage
 
 ## License
 
