@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from 'src/configs/jwt-auth.guard';
 import { HomeController } from 'src/controllers/home.controller';
 import { OrderModule } from 'src/modules/order.module';
 import { PrismaModule } from 'src/modules/prisma.module';
@@ -19,6 +21,14 @@ import { UserService } from 'src/services/user.service';
     PrismaModule,
   ],
   controllers: [HomeController],
-  providers: [JwtService, HomeService, UserService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    JwtService,
+    HomeService,
+    UserService,
+  ],
 })
 export class HomeModule {}

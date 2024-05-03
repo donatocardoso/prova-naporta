@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
-import { Response, Responser } from 'src/configs/response';
+import { Reaction, Responser } from 'src/configs/response';
 import { UserCreateDto } from 'src/dtos/user/user.create.dto';
 import { UserFilterDto } from 'src/dtos/user/user.filter.dto';
 import { UserUpdateDto } from 'src/dtos/user/user.update.dto';
@@ -10,13 +10,13 @@ import { PrismaService } from 'src/services/prisma.service';
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getUsers(): Promise<Response<User[]>> {
+  async getUsers(): Promise<Reaction<User[]>> {
     const users = await this.prismaService.user.findMany();
 
     return Responser.Success<User[]>('Ok', users);
   }
 
-  async getUsersByFilter(filterDto: UserFilterDto): Promise<Response<User[]>> {
+  async getUsersByFilter(filterDto: UserFilterDto): Promise<Reaction<User[]>> {
     const users = await this.prismaService.user.findMany({
       where: { ...filterDto },
     });
@@ -24,7 +24,7 @@ export class UserService {
     return Responser.Success<User[]>('Ok', users);
   }
 
-  async getUserById(id: string): Promise<Response<User>> {
+  async getUserById(id: string): Promise<Reaction<User>> {
     const user = await this.prismaService.user.findUnique({
       where: { id },
     });
@@ -36,19 +36,15 @@ export class UserService {
     return Responser.Success<User>('Ok', user);
   }
 
-  async getUserByLogin(login: string): Promise<Response<User>> {
+  async getUserByLogin(login: string): Promise<Reaction<User>> {
     const user = await this.prismaService.user.findFirst({
       where: { login },
     });
 
-    if (!user) {
-      return Responser.Fail<User>('Nenhum user encontrado');
-    }
-
     return Responser.Success<User>('Ok', user);
   }
 
-  async createUser(createDto: UserCreateDto): Promise<Response<User>> {
+  async createUser(createDto: UserCreateDto): Promise<Reaction<User>> {
     const user = await this.prismaService.user.create({
       data: {
         name: createDto.name,
@@ -61,7 +57,7 @@ export class UserService {
     return Responser.Success<User>('Ok', user);
   }
 
-  async updateUser(id: string, updateDto: UserUpdateDto): Promise<Response<User>> {
+  async updateUser(id: string, updateDto: UserUpdateDto): Promise<Reaction<User>> {
     const user = await this.prismaService.user.update({
       where: { id },
       data: { ...updateDto },
@@ -70,7 +66,7 @@ export class UserService {
     return Responser.Success<User>('Ok', user);
   }
 
-  async deleteUser(id: string): Promise<Response<User>> {
+  async deleteUser(id: string): Promise<Reaction<User>> {
     const user = await this.prismaService.user.delete({
       where: { id },
     });

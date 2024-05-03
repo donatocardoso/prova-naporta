@@ -5,20 +5,20 @@ import { ItemDto } from 'src/dtos/shared/item.dto';
 
 export class OrderFilterDto {
   @ApiProperty()
-  orderNumber: number;
+  orderNumber?: number;
 
   @ApiProperty()
-  expectedDeliveryDate: Date;
+  expectedDeliveryDate?: Date;
 
   @ApiProperty({ type: CustomerDto })
-  customer: CustomerDto;
+  customer?: CustomerDto;
 
   @ApiProperty({ type: AddressDto })
-  deliveryAddress: AddressDto;
+  deliveryAddress?: AddressDto;
 
   @ApiProperty({ type: ItemDto })
-  item: ItemDto;
+  item?: ItemDto;
 
   @ApiProperty()
-  createdAt: Date;
+  createdAt?: Date;
 }

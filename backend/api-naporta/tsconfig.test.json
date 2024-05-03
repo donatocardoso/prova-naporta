@@ -1,4 +1,9 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "dist"]
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "moduleNameMapper": {
+      "/src/(.*)": "<rootDir>/src/$1"
+    }
+  }
 }

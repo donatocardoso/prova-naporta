@@ -2,20 +2,20 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UserFilterDto {
   @ApiProperty()
-  name: string;
+  name?: string;
 
   @ApiProperty()
-  description: string;
+  description?: string;
 
   @ApiProperty()
-  login: string;
+  login?: string;
 
   @ApiProperty()
-  password: string;
+  password?: string;
 
   @ApiProperty()
-  active: boolean;
+  active?: boolean;
 
   @ApiProperty()
-  createdAt: Date;
+  createdAt?: Date;
 }

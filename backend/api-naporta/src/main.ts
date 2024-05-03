@@ -1,10 +1,11 @@
+import { INestApplication } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/configs/jwt-auth.guard';
 import { HomeModule } from 'src/modules/home.module';
 
-async function bootstrap() {
+export async function bootstrap(): Promise<INestApplication<any>> {
   // cria instancia do servidor
   const app = await NestFactory.create(HomeModule);
 
@@ -13,7 +14,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api-naporta', app, document, {
+  SwaggerModule.setup('swagger', app, document, {
     swaggerOptions: {
       securityDefinitions: {
         Bearer: {
@@ -33,7 +34,12 @@ async function bootstrap() {
   app.useGlobalGuards(new JwtAuthGuard(reflector, jwtService));
 
   // inicia o servidor
-  await app.listen(3000);
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'test') {
+    await app.listen(process.env.PORT, '0.0.0.0');
+  }
+
+  return app;
 }
 
 bootstrap();

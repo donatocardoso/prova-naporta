@@ -3,7 +3,10 @@ import { AddressDto } from 'src/dtos/shared/address.dto';
 import { CustomerDto } from 'src/dtos/shared/customer.dto';
 import { ItemDto } from 'src/dtos/shared/item.dto';
 
-export class ProductDto {
+export class OrderDto {
+  @ApiProperty()
+  id: string;
+
   @ApiProperty()
   orderNumber: number;
 

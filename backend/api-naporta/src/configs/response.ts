@@ -1,11 +1,11 @@
-export type Response<T> = {
+export type Reaction<T> = {
   success: boolean;
   message: string;
   content?: T;
 };
 
 export class Responser {
-  static Success<T>(message: string, content: T): Response<T> {
+  static Success<T>(message: string, content: T): Reaction<T> {
     return {
       success: true,
       message,
@@ -13,7 +13,7 @@ export class Responser {
     };
   }
 
-  static Fail<T>(message: string): Response<T> {
+  static Fail<T>(message: string): Reaction<T> {
     return {
       success: false,
       message,

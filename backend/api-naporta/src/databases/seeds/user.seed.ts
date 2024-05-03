@@ -16,6 +16,12 @@ export async function UserSeed(prisma: PrismaClient): Promise<any> {
           login: 'dev_felipe',
           password: '6wyXgGcb5T',
         },
+        {
+          name: 'Jest Framework For Test',
+          description: 'Jest é um framework de teste em JavaScript projetado para garantir a correção de qualquer código JavaScript. ',
+          login: 'jest',
+          password: '399bhYTIHl',
+        },
       ],
     }),
   ]);

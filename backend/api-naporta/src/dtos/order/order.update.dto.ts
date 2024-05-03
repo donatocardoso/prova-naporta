@@ -5,14 +5,14 @@ import { ItemDto } from 'src/dtos/shared/item.dto';
 
 export class OrderUpdateDto {
   @ApiProperty()
-  expectedDeliveryDate: Date;
+  expectedDeliveryDate?: Date;
 
   @ApiProperty({ type: CustomerDto })
-  customer: CustomerDto;
+  customer?: CustomerDto;
 
   @ApiProperty({ type: AddressDto })
-  deliveryAddress: AddressDto;
+  deliveryAddress?: AddressDto;
 
   @ApiProperty({ type: [ItemDto] })
-  items: ItemDto[];
+  items?: ItemDto[];
 }

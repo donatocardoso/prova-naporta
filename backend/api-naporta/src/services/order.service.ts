@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Order } from '@prisma/client';
-import { Response, Responser } from 'src/configs/response';
+import { Reaction, Responser } from 'src/configs/response';
 import { OrderCreateDto } from 'src/dtos/order/order.create.dto';
 import { OrderFilterDto } from 'src/dtos/order/order.filter.dto';
 import { OrderUpdateDto } from 'src/dtos/order/order.update.dto';
@@ -10,13 +10,13 @@ import { PrismaService } from 'src/services/prisma.service';
 export class OrderService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getOrders(): Promise<Response<Order[]>> {
+  async getOrders(): Promise<Reaction<Order[]>> {
     const orders = await this.prismaService.order.findMany();
 
     return Responser.Success<Order[]>('Ok', orders);
   }
 
-  async getOrdersByFilter(filterDto: OrderFilterDto): Promise<Response<Order[]>> {
+  async getOrdersByFilter(filterDto: OrderFilterDto): Promise<Reaction<Order[]>> {
     const orders = await this.prismaService.order.findMany({
       where: { ...filterDto },
     });
@@ -24,7 +24,7 @@ export class OrderService {
     return Responser.Success<Order[]>('Ok', orders);
   }
 
-  async getOrderById(id: string): Promise<Response<Order>> {
+  async getOrderById(id: string): Promise<Reaction<Order>> {
     const order = await this.prismaService.order.findUnique({
       where: { id },
     });
@@ -36,7 +36,7 @@ export class OrderService {
     return Responser.Success<Order>('Ok', order);
   }
 
-  async createOrder(createDto: OrderCreateDto): Promise<Response<Order>> {
+  async createOrder(createDto: OrderCreateDto): Promise<Reaction<Order>> {
     const order = await this.prismaService.order.create({
       data: {
         orderNumber: Math.random() * 100,
@@ -68,7 +68,7 @@ export class OrderService {
     return Responser.Success<Order>('Ok', order);
   }
 
-  async updateOrder(id: string, updateDto: OrderUpdateDto): Promise<Response<Order>> {
+  async updateOrder(id: string, updateDto: OrderUpdateDto): Promise<Reaction<Order>> {
     const order = await this.prismaService.order.update({
       where: { id },
       data: updateDto,
@@ -77,7 +77,7 @@ export class OrderService {
     return Responser.Success<Order>('Ok', order);
   }
 
-  async deleteOrder(id: string): Promise<Response<Order>> {
+  async deleteOrder(id: string): Promise<Reaction<Order>> {
     const order = await this.prismaService.order.delete({
       where: { id },
     });
