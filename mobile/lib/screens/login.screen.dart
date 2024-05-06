@@ -45,65 +45,73 @@ class LoginScreen extends State<LoginScreenModel> {
       appBar: AppBar(
         title: const Text('NaPorta - Login'),
       ),
-      body: Center(
-        child: Container(
-          width: 350,
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 150.0),
-              const Icon(
-                Icons.inventory,
-                color: Colors.white,
-                size: 50,
-              ),
-              const SizedBox(height: 150.0),
-              Form(
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: loginController,
-                      style: const TextStyle(
-                        height: 3.0,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        labelText: 'Usuário',
-                        labelStyle: TextStyle(color: Colors.white),
-                        border: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 2.0),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          double widgetHeight = constraints.maxHeight;
+
+          return Center(
+            child: Container(
+              width: 350,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(height: widgetHeight * 0.1),
+                  const Icon(
+                    Icons.inventory,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                  Form(
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: loginController,
+                          style: const TextStyle(
+                            height: 3.0,
+                            color: Colors.white,
+                          ),
+                          decoration: const InputDecoration(
+                            labelText: 'Usuário',
+                            labelStyle: TextStyle(color: Colors.white),
+                            border: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 20.0),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      style: const TextStyle(
-                        height: 3.0,
-                        color: Colors.white,
-                      ),
-                      decoration: const InputDecoration(
-                        labelText: 'Senha',
-                        labelStyle: TextStyle(color: Colors.white),
-                        border: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.white, width: 2.0),
+                        const SizedBox(height: 20.0),
+                        TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          style: const TextStyle(
+                            height: 3.0,
+                            color: Colors.white,
+                          ),
+                          decoration: const InputDecoration(
+                            labelText: 'Senha',
+                            labelStyle: TextStyle(color: Colors.white),
+                            border: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: 20.0),
+                        ElevatedButton(
+                          onPressed: authenticate,
+                          child: const Text('Login'),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: authenticate,
-                      child: const Text('Login'),
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: widgetHeight * 0.2),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

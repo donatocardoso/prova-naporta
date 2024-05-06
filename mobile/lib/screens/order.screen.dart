@@ -85,43 +85,46 @@ class OrderScreen extends State<OrderScreenModel> {
             ],
           ),
         ),
-        Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.all(20.0),
-          child: SizedBox(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: widget.orders.length,
-              itemBuilder: (context, index) {
-                final order = widget.orders[index];
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widget.orders.length,
+                  itemBuilder: (context, index) {
+                    final order = widget.orders[index];
 
-                final day =
-                    DateFormat('dd/MM').format(order.expectedDeliveryDate);
+                    final day =
+                        DateFormat('dd/MM').format(order.expectedDeliveryDate);
 
-                final hour =
-                    DateFormat('HH:mm').format(order.expectedDeliveryDate);
+                    final hour =
+                        DateFormat('HH:mm').format(order.expectedDeliveryDate);
 
-                return Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.all(10.0),
-                  margin: const EdgeInsets.only(bottom: 20.0),
-                  child: ListTile(
-                    title: Text(
-                      'Pedido ID: ${order.id.substring(19, 24)}',
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                    return Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.only(bottom: 20.0),
+                      child: ListTile(
+                        title: Text(
+                          'Pedido ID: ${order.id.substring(19, 24)}',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Previsão de entrega em $day às $hour',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onTap: () => widget.updateScreen("OrderDetail"),
                       ),
-                    ),
-                    subtitle: Text(
-                      'Previsão de entrega em $day às $hour',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    trailing: const Icon(Icons.arrow_forward),
-                    onTap: () => widget.updateScreen("OrderDetail"),
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 class HomeScreen extends State<HomeScreenModel> {
   late int _selectedIndex = 1;
   late String _selectedKey = "Order";
-  late bool _visibilityCreateOrder = true;
 
   late Map<String, Widget> pages = {
     //--------------- NÃO ALETARAR A ORDEM ABAIXO ---------------//
@@ -29,7 +28,6 @@ class HomeScreen extends State<HomeScreenModel> {
   void updateScreen(String key) {
     setState(() {
       _selectedKey = key;
-      _visibilityCreateOrder = key == "Delivery" || key == "Order";
     });
   }
 
@@ -39,8 +37,6 @@ class HomeScreen extends State<HomeScreenModel> {
     setState(() {
       _selectedIndex = index;
       _selectedKey = keys[index];
-      _visibilityCreateOrder =
-          keys[index] == "Delivery" || keys[index] == "Order";
     });
   }
 
@@ -52,18 +48,10 @@ class HomeScreen extends State<HomeScreenModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                color: Colors.grey[200],
-                child: pages[_selectedKey],
-              ),
-            ),
-          ],
-        ),
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        color: Colors.grey[200],
+        child: pages[_selectedKey],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

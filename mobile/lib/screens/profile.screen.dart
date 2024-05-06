@@ -101,66 +101,65 @@ class ProfileScreen extends State<ProfileScreenModel> {
               ],
             ),
           ),
-          Container(
-            width: 350,
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20.0),
-                const Text("Nome completo"),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    labelText: 'Exemplo: João Nascimento',
-                    border: UnderlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Descrição"),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  controller: descriptionController,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    labelText: 'Exemplo: Dev Mobile Flutter',
-                    border: UnderlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Login"),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: loginController,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    labelText: 'Exemplo: dev_nome',
-                    border: UnderlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 30.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: submitForm,
-                      child: const Text('Alterar Senha'),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20.0),
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        labelText: 'Nome completo',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                    const SizedBox(height: 20.0),
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      controller: descriptionController,
+                      decoration: const InputDecoration(
+                        labelText: 'Descrição',
+                        border: OutlineInputBorder(),
                       ),
-                      onPressed: submitForm,
-                      child: const Text(
-                        'Salvar',
-                        style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20.0),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      controller: loginController,
+                      decoration: const InputDecoration(
+                        labelText: 'Login',
+                        border: OutlineInputBorder(),
                       ),
+                    ),
+                    const SizedBox(height: 30.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: submitForm,
+                          child: const Text('Alterar Senha'),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          onPressed: submitForm,
+                          child: const Text(
+                            'Salvar',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ],
