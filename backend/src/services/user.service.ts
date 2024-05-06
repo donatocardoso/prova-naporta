@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
+import moment from 'moment';
 import { Reaction, Responser } from 'src/configs/response';
 import { UserCreateDto } from 'src/dtos/user/user.create.dto';
 import { UserFilterDto } from 'src/dtos/user/user.filter.dto';
@@ -18,7 +19,16 @@ export class UserService {
 
   async getUsersByFilter(filterDto: UserFilterDto): Promise<Reaction<User[]>> {
     const users = await this.prismaService.user.findMany({
-      where: { ...filterDto },
+      where: {
+        name: filterDto.name,
+        description: filterDto.description,
+        login: filterDto.login,
+        password: filterDto.password,
+        active: filterDto.active,
+        createdAt: moment(filterDto.createdAt).format('YYYY-MM-DD'),
+      },
+      skip: (filterDto.page - 1) * filterDto.quantity,
+      take: filterDto.quantity,
     });
 
     return Responser.Success<User[]>('Ok', users);

@@ -21,7 +21,7 @@ export class UserController {
     return reaction;
   }
 
-  @Get('filtrar')
+  @Get('filter')
   @HttpCode(HttpStatus.OK)
   @ApiQuery({ type: UserFilterDto })
   async getUsersByFilter(@Query() filterDto: UserFilterDto): Promise<Reaction<UserDto[]>> {

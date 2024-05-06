@@ -14,9 +14,6 @@ export class UserDto {
   login: string;
 
   @ApiProperty()
-  password: string;
-
-  @ApiProperty()
   active: boolean;
 
   @ApiProperty()

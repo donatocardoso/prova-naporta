@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import moment from 'moment';
 import { Reaction, Responser } from 'src/configs/response';
-import { AuthDto } from 'src/dtos/home/auth.dto';
+import { AuthenticateDto } from 'src/dtos/home/authenticate.dto';
+import { AuthorizedDto } from 'src/dtos/home/authorized.dto';
 import { UserService } from 'src/services/user.service';
 
 @Injectable()
@@ -22,11 +23,11 @@ export class HomeService {
     return message.join('\r\n\r\n');
   }
 
-  async signIn(authDto: AuthDto): Promise<Reaction<string>> {
+  async signIn(authDto: AuthenticateDto): Promise<Reaction<AuthorizedDto>> {
     const user = await this.userService.getUserByLogin(authDto.login);
 
     if (!user || !user.success || !user.content?.password) {
-      return Responser.Fail<string>('Unauthorized');
+      return Responser.Fail<AuthorizedDto>('Unauthorized');
     }
 
     //const cryptr = new Cryptr(process.env.BUTTERCUP_SECRET);
@@ -36,16 +37,21 @@ export class HomeService {
     //const password = cryptr.decrypt(authDto.password);
 
     if (authDto.password !== user.content.password) {
-      return Responser.Fail<string>('Unauthorized');
+      return Responser.Fail<AuthorizedDto>('Unauthorized');
     }
 
-    const payload = { sub: user.content.id, login: authDto.login };
+    const payload = {
+      sub: user.content.id,
+      login: authDto.login,
+      date: Date.now().toString(),
+    };
 
-    return Responser.Success(
-      'Ok',
-      await this.jwtService.signAsync(payload, {
+    return Responser.Success('Ok', {
+      id: user.content.id,
+      login: authDto.login,
+      token: await this.jwtService.signAsync(payload, {
         secret: process.env.JWT_SECRET,
       }),
-    );
+    });
   }
 }

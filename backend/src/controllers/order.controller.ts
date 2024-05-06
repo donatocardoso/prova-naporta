@@ -5,6 +5,7 @@ import { OrderCreateDto } from 'src/dtos/order/order.create.dto';
 import { OrderFilterDto } from 'src/dtos/order/order.filter.dto';
 import { OrderUpdateDto } from 'src/dtos/order/order.update.dto';
 import { OrderDto } from 'src/dtos/shared/order.dto';
+import { PaginateDto } from 'src/dtos/shared/paginate.dto';
 import { OrderService } from 'src/services/order.service';
 
 @ApiBearerAuth()
@@ -15,13 +16,13 @@ export class OrderController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  async getOrders(): Promise<Reaction<OrderDto[]>> {
-    const reaction: any = await this.orderService.getOrders();
+  async getOrders(@Query() paginateDto: PaginateDto): Promise<Reaction<OrderDto[]>> {
+    const reaction: any = await this.orderService.getOrders(paginateDto);
 
     return reaction;
   }
 
-  @Get('filtrar')
+  @Get('filter')
   @HttpCode(HttpStatus.OK)
   @ApiQuery({ type: OrderFilterDto })
   async getOrdersByFilter(@Query() filterDto: OrderFilterDto): Promise<Reaction<OrderDto[]>> {

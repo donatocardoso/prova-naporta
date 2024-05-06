@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "preLaunch", "dependsOrder": "sequence", "dependsOn": ["npm: prisma:gen"] },
+    {
+      "label": "npm: prisma:gen",
+      "type": "npm",
+      "script": "prisma:gen",
+      "problemMatcher": [],
+      "detail": "npx prisma generate --schema=./src/databases/schema.prisma"
+    }
+  ]
+}
+

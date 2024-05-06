@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { PaginateDto } from 'src/dtos/shared/paginate.dto';
 
-export class UserFilterDto {
+export class UserFilterDto extends PaginateDto {
   @ApiProperty()
   name?: string;
 
